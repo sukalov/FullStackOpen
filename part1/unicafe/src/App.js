@@ -8,6 +8,14 @@ const Button = ({handleClick, text}) => {
     </button>
 )};
 
+const StatisticLine = ({text, value}) => {
+  return (
+    <p>
+      {text}: {value}
+    </p>
+  )
+}
+
 const Statistics = ({good, bad, neutral}) => { // well, i can skip task 1.8 cause this component's already here
   const sum = good + bad + neutral
   let average;
@@ -17,16 +25,16 @@ const Statistics = ({good, bad, neutral}) => { // well, i can skip task 1.8 caus
   let positive;
     sum === 0 ? positive = 0 :
     positive = good / (sum) * 100;
-    
+
   if (sum === 0) return <p>No feedback given</p>
 
   return (
     <div>
-      <p>good: {good}</p>
-      <p>neutral: {neutral}</p>
-      <p>bad: {bad}</p>
-      <p>average: {average}</p>
-      <p>positive: {positive}%</p>
+      <StatisticLine text='good' value={good} />
+      <StatisticLine text='neutral' value={neutral} />
+      <StatisticLine text='bad' value={bad} />
+      <StatisticLine text='average' value={average} />
+      <StatisticLine text='poaitive' value={positive} />
     </div>
   )
 }
