@@ -1,7 +1,8 @@
 import './App.css';
 import { useState } from 'react'
+// styling still terrible, but that's not why we here
 
-const Anecdote = ({text}) => <div className='quote-block'>{text}</div>
+const Anecdote = ({ text, myClass }) => <div className={'quote-block ' + myClass} >{text}</div>
 const Button = ({ handleClick, text }) => <button onClick={handleClick}>{text}</button>
 
 function App() {
@@ -46,11 +47,15 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div className="quote-parent">
-          <Anecdote text={anecdotes[selected]} />
+          <h2>anecdote of the day</h2>
           <p>has {points[selected]} votes</p>
+          <Anecdote myClass='random' text={anecdotes[selected]} />
         </div>
         <Button handleClick={newQuote} text='next anecdote' />
         <Button handleClick={vote} text='vote' />
+        <h2>anecdote with most votes</h2>
+        <p>has {Math.max(...points)} votes</p>
+        <Anecdote myClass='top-voted' text={anecdotes[points.indexOf(Math.max(...points))]} />
       </header>
     </div>
   );
