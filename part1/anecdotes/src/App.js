@@ -17,27 +17,40 @@ function App() {
     `If you don't know where you are going, any road will take you there.`,
     `Education is a progressive discovery of our own ignorance.`,
     `Walking on water and developing software from a specification are easy if both are frozen.`,
-    `Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.`,
+    `Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.`,
     `Java is to JavaScript what Car is to Carpet.`,
     `Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.`,
     `In order to understand recursion, one must first understand recursion.`
   ]
+
+  let initialPoints = anecdotes.map(el => 0);
    
-  const [selected, setSelected] = useState(0)
+  const [selected, setSelected] = useState(0);
+  const [points, setPoints] = useState(initialPoints);
 
   const newQuote = () => {
     let randomIndex = Math.floor(Math.random() * anecdotes.length);
-    while (randomIndex == selected) { // in this case our button always gives a new quote
+    while (randomIndex === selected) { // in this case our button always gives a new quote
       randomIndex = Math.floor(Math.random() * anecdotes.length);
     }
     setSelected(randomIndex)
   }
 
+  const vote = () => {
+    const newPoints = [...points]
+    newPoints[selected] ++
+    setPoints(newPoints)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <div className="quote-parent"><Anecdote text={anecdotes[selected]} /></div>
-        <Button handleClick={newQuote} text='new quote' />
+        <div className="quote-parent">
+          <Anecdote text={anecdotes[selected]} />
+          <p>has {points[selected]} votes</p>
+        </div>
+        <Button handleClick={newQuote} text='next anecdote' />
+        <Button handleClick={vote} text='vote' />
       </header>
     </div>
   );
