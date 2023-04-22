@@ -1,4 +1,4 @@
-// import './App.css';
+import './App.css';
 import { useState } from 'react'
 
 const Button = ({handleClick, text}) => {
@@ -9,11 +9,20 @@ const Button = ({handleClick, text}) => {
 )};
 
 const Statistics = ({good, bad, neutral}) => {
+  let average;
+    good + bad + neutral === 0 ? average = 0 :
+    average = (good - bad) / (good + bad + neutral);
+
+  let positive;
+    good + bad + neutral === 0 ? positive = 0 :
+    positive = good / (good + bad + neutral) * 100;
   return (
     <div>
       <p>good: {good}</p>
       <p>neutral: {neutral}</p>
       <p>bad: {bad}</p>
+      <p>average: {average}</p>
+      <p>positive: {positive}%</p>
     </div>
   )
 }
