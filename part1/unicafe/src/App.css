@@ -7,6 +7,17 @@
   pointer-events: none;
 }
 
+td {
+  border: 1px solid white;
+  text-align: left;
+  min-width: 90px;
+  padding: 3px;
+}
+
+td:nth-child(2) {
+  min-width: 220px
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
