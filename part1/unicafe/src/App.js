@@ -8,7 +8,7 @@ const Button = ({handleClick, text}) => {
     </button>
 )};
 
-const Statistics = ({good, bad, neutral}) => {
+const Statistics = ({good, bad, neutral}) => { // well, i can skip task 1.9 cause this component's already here
   let average;
     good + bad + neutral === 0 ? average = 0 :
     average = (good - bad) / (good + bad + neutral);
