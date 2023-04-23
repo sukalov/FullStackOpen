@@ -9,20 +9,16 @@ const App = () => {
   const [newName, setNewName] = useState('')
 
   const addPerson = (e) => {
-    console.log(persons.find(p => p.name === newName))
     e.preventDefault();
-    if (newName === '' || 
-        persons.find(
-          p => {
-            return p.name === newName
-          }
-          ) !== undefined) {
-      console.log('error')
-    }
-    else {
-    setPersons(oldPersons => [...oldPersons, {name: newName}])
+    
+    persons.find(p => p.name === newName) === undefined ?
+    setPersons(oldPersons => [...oldPersons, {name: newName}]) :
+      newName !== '' ? 
+      alert(`${newName} is already added to phonebook`) : 
+      Function();
+      
+
     setNewName('')
-  }
   };
 
   const handleInputChange = (e) => setNewName(e.target.value)
