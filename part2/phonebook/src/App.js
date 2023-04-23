@@ -17,21 +17,14 @@ const App = () => {
     const personsCopy = [...persons]
     const personIndex = persons.indexOf(filter)
     if (filter) {
-      if (filter.number === newNumber || newNumber === '') {
+      if (filter.number === newNumber || (newNumber === '' && newName != '')) {
         alert(`${newName}'s already in contacts with this number`)
     } else if (window.confirm(`Are you sure you want to change the number for ${newName} from ${filter.number} to ${newNumber}`)) {
      personsCopy[personIndex] = {name: filter.name, number: newNumber, id: filter.id}
      setPersons(personsCopy)}
-  } else {
+  } else if (newName !== '') {
     setPersons([...persons, {name: newName, number: newNumber, id: persons.length + 1}])
   }
-    
-    // if (persons.find(p => p.name === newName) === undefined) ?
-    //   setPersons(oldPersons => [...oldPersons, {name: newName}]) :
-    //   newName !== '' ? 
-    //     alert(`${newName} is already added to phonebook`) : 
-    //     Function();
-
     setNewName('')
     setNewNumber('')
   };
