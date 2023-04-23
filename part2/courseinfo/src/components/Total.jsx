@@ -1,5 +1,10 @@
-const Total = ({parts}) => (
-    <p>Number of exercises {parts[0].exercises + parts[1].exercises + parts[2].exercises}</p>
+const Total = ({ parts }) => (
+    <h4>
+        Total: {parts.reduce(
+                    (sum, part) => 
+                    sum + part.exercises, 0)
+                }
+    </h4>
 )
 
 export default Total
