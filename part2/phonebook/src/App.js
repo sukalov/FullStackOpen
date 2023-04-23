@@ -5,7 +5,11 @@ const App = () => {
     { name: 'Arto Hellas', number: '040-123456', id: 1 },
     { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
     { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
-    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
+    { name: 'Matvey Sokolovsky', number: '39-23-6423122', id: 4 },
+    { name: 'John Lennon', number: '7-916-066-03-12', id: 5 },
+    { name: 'Thelonious Monk', number: '35-32864724', id: 6 },
+    { name: 'Anatoly Yatskov', number: '+1-347-620-0909', id: 7 },
+
   ])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
@@ -33,7 +37,6 @@ const App = () => {
   const handleNumberChange = (e) => setNewNumber(e.target.value)
   const handleSearchChange = (e) => setSearch(e.target.value)
 
-
   return (
     <div>
       <h1>Phonebook</h1>
@@ -55,7 +58,12 @@ const App = () => {
       <h3>Contacts</h3>
       <table>
         <tbody>
-          {persons.map(person =>
+          {persons
+          .filter(person => 
+            person.name.toLowerCase()
+            .match(search.toLowerCase()) !== null
+          )
+          .map(person =>
             <tr key={person.id}>
               <td> {person.name}</td>
               <td> {person.number}</td>
