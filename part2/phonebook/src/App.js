@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
-
+import dbServices from './services/dbService'
 import ContactList from './components/ContactList'
 import CreateContact from './components/CreateContact'
 import Filter from './components/Filter'
+import filterAndSend from './services/newContact'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -12,33 +12,25 @@ const App = () => {
   const [search, setSearch] = useState('')
 
   useEffect(() => {
-    axios.get('http://localhost:3001/persons')
+    dbServices.getAll()
          .then(response =>{
-          setPersons(response.data)
+          setPersons(response)
          })
   },[])
 
-  const addPerson = (e) => {
+  const addPerson = e => {
     e.preventDefault();
-    const filter = persons.find(p => p.name === newName);
-    const personsCopy = [...persons]
-    const personIndex = persons.indexOf(filter)
-    if (filter) {
-      if (filter.number === newNumber || newNumber === '') {
-        alert(`${newName}'s already in contacts with this number`)
-    } else if (window.confirm(`Are you sure you want to change the number for ${newName} from ${filter.number} to ${newNumber}`)) {
-     personsCopy[personIndex] = {name: filter.name, number: newNumber, id: filter.id}
-     setPersons(personsCopy)}
-  } else {
-    setPersons([...persons, {name: newName, number: newNumber, id: persons.length + 1}])
-  }
-    setNewName('')
-    setNewNumber('')
+    filterAndSend(persons, newName, newNumber, setPersons)
+      .then(res => {
+        setNewName('')
+        setNewNumber('')
+      })
+      .catch(e => console.log(e))
   };
 
-  const handleNameChange = (e) => setNewName(e.target.value)
-  const handleNumberChange = (e) => setNewNumber(e.target.value)
-  const handleSearchChange = (e) => setSearch(e.target.value)
+  const handleNameChange = e => setNewName(e.target.value)
+  const handleNumberChange = e => setNewNumber(e.target.value)
+  const handleSearchChange = e => setSearch(e.target.value)
 
   return (
     <div>
