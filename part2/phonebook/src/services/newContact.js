@@ -1,6 +1,6 @@
 import dbService from "./dbService";
 
-const filterAndSend = (persons, newName, newNumber, set) => {
+const filterAndSend = async (persons, newName, newNumber, set) => {
     const filter = persons.find(p => p.name === newName);
     const personsCopy = [...persons];
     const index = persons.indexOf(filter)

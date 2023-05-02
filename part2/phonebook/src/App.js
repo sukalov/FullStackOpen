@@ -42,7 +42,9 @@ const App = () => {
                        number={newNumber}
                        handlerNumber={handleNumberChange}
                         />
-        <ContactList   persons={persons} search={search} />
+        <ContactList   persons={persons}
+                       search={search}
+                       set={setPersons} />
     </div>
   )
 }

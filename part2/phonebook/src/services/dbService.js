@@ -16,4 +16,10 @@ const update = (person) => {
     return result.then(res => res.data).catch(e => console.log(e));
 }
 
-export default {getAll, create, update}
+const del = (person) => {
+    const result = axios.delete(`${url}/${person.id}`)
+    return result.then(res => res.data).catch(e => console.log(e))
+
+}
+
+export default {getAll, create, update, del}
