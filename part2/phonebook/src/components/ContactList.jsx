@@ -1,19 +1,7 @@
 import Button from "./Button"
-import dbService from "../services/dbService"
+import deleteContact from "../services/deleteContact"
 
-const ContactList = ({ persons, search, set }) => {
-    const personsUpd = [...persons]
-    const deleteContact = (person) => {
-        const index = personsUpd.indexOf(person)
-        if (window.confirm(`Are you sure you want to delete ${person.name} from conacts?`)) {
-            dbService.del(person)
-                .then(res => {
-                    personsUpd.splice(index);
-                    set(personsUpd);
-                })
-                .catch(e => console.log(e))
-        }
-    }
+const ContactList = ({ persons, search, set, setMessage }) => {
     return (
         <>
             <h3>Contacts</h3>
@@ -28,7 +16,7 @@ const ContactList = ({ persons, search, set }) => {
                 <tr key={person.id}>
                     <td> {person.name}</td>
                     <td> {person.number}</td>
-                    <td><Button text="delete" onClick={() => deleteContact(person)}/></td>
+                    <td><Button text="delete" onClick={() => deleteContact(persons, set, setMessage, person)}/></td>
                 </tr>
             )}
             </tbody>

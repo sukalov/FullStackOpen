@@ -1,0 +1,40 @@
+
+
+body {
+    background-color: ghostwhite;
+    text-align: center;
+    min-width: 300px;
+}
+table {
+    margin: auto;
+    text-align: left;
+    border: 1px solid black;
+}
+
+input[type="text"]{
+    margin-left: 10px;
+}
+
+
+.main {
+    border: 1px solid #333;
+    background-color: bisque;
+    width: clamp(150px, 90%, 500px);
+    margin: auto;
+    padding: 10px 10px 50px 10px;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: 70px auto;
+    text-align: right;
+    padding-bottom: 10px;
+}
+
+table button {
+    background-color: white;
+    border: 1px solid black;
+    cursor: pointer;
+    margin-left: 15px;
+
+}
