@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react'
 import dbServices from './services/dbService'
+import filterAndSend from './services/newContact'
+
 import ContactList from './components/ContactList'
 import CreateContact from './components/CreateContact'
 import Filter from './components/Filter'
-import filterAndSend from './services/newContact'
+import Notification from './components/Notification'
+
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [search, setSearch] = useState('')
+  const [message, setMessage] = useState({message: null})
 
   useEffect(() => {
     dbServices.getAll()
@@ -22,10 +26,13 @@ const App = () => {
     e.preventDefault();
     filterAndSend(persons, newName, newNumber, setPersons)
       .then(res => {
+        setMessage({message: `Action completed succesfully!`, status: 'good'})
         setNewName('')
         setNewNumber('')
-      })
-      .catch(e => console.log(e))
+      }).then(
+        setTimeout(() => setMessage({message: null}), 3000)
+      )
+      .catch(e => console.log(`============:>${e}`))
   };
 
   const handleNameChange = e => setNewName(e.target.value)
@@ -33,8 +40,9 @@ const App = () => {
   const handleSearchChange = e => setSearch(e.target.value)
 
   return (
-    <div>
+    <div className='main'>
       <h1>Phonebook</h1>
+      <Notification message={message.message} status={message.status}/>
         <Filter handler={handleSearchChange} value={search} />
         <CreateContact addPerson={addPerson}
                        name={newName} 
@@ -44,7 +52,8 @@ const App = () => {
                         />
         <ContactList   persons={persons}
                        search={search}
-                       set={setPersons} />
+                       set={setPersons}
+                       setMessage={setMessage} />
     </div>
   )
 }
