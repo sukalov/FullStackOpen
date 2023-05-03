@@ -1,7 +1,7 @@
 
 
 body {
-    background-color: ghostwhite;
+    background-color: #211812;
     text-align: center;
     min-width: 300px;
 }
@@ -14,7 +14,6 @@ table {
 input[type="text"]{
     margin-left: 10px;
 }
-
 
 .main {
     border: 1px solid #333;

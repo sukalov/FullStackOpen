@@ -8,12 +8,14 @@ const deleteContact = (persons, set, setMessage, person) => {
             .then(res => {
                 setMessage({message: 'Contact deleted successfully!', status:'good'});
                 setTimeout(()=> setMessage({message: null}), 3000);
-                personsUpd.splice(index);
+                personsUpd.splice(index, 0);
                 set(personsUpd);
             })
             .catch(e => {
                 setMessage({message: '404: contact already deleted'})
-                setTimeout(()=> setMessage({message: null}), 3000)})
+                setTimeout(()=> setMessage({message: null}), 3000)});
+                personsUpd.splice(index, 1);
+                set(personsUpd);
     }
 }
 

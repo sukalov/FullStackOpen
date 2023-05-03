@@ -1,5 +1,5 @@
 import axios from 'axios';
-const url = 'http://localhost:3001/persons';
+const url = 'http://localhost:3001/api/persons';
 
 const getAll = () => {
     const result = axios.get(url)
@@ -13,13 +13,15 @@ const create = newPerson => {
 
 const update = (person) => {
     const result = axios.put(`${url}/${person.id}`, person)
-    return result.then(res => res.data);
+    return result.then(res => {
+        console.log(res)
+        return res.data});
 }
 
 const del = (person) => {
     const result = axios.delete(`${url}/${person.id}`)
-    return result.then(res => res.data);
-
+    return result
 }
 
+// eslint-disable-next-line
 export default {getAll, create, update, del}
