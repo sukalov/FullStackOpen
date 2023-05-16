@@ -23,7 +23,7 @@ const CountriesList = ({countries, search}) => {
                                 expandIcon={<ExpandMoreIcon />}
                                 id={`panel${i+1}-header`}
                             >
-                                <Typography key={country.name.common} fontWeight={400} variant="h2" fontSize='1.2rem'>
+                                <Typography key={country.name.common} fontWeight={300} variant="h2" fontSize='1.2rem'>
                                     {country.name.common}
                                 </Typography>
                             </AccordionSummary>

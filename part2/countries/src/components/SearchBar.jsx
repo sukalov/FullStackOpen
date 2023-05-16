@@ -3,7 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import {LightMode, ModeNight} from "@mui/icons-material"
 import {Grid} from "@mui/material";
 
-const SearchBar = ({handleChange, toggle, mode, onFB, style}) => {
+const SearchBar = ({handleChange, toggle, mode, style}) => {
     return (
         <div style={style} className="search-bar">
             <Grid container columns={16}>
@@ -13,7 +13,7 @@ const SearchBar = ({handleChange, toggle, mode, onFB, style}) => {
                     </IconButton>
                 </Grid>
                 <Grid item xs={14}>
-                    <TextField fullWidth onBlur={onFB} onFocus={onFB} label="find countries" id="fullWidth" onChange={handleChange}/>
+                    <TextField fullWidth label="find countries" id="fullWidth" onChange={handleChange}/>
                 </Grid>
             </Grid>
         </div>

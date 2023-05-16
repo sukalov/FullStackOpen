@@ -5,10 +5,10 @@ import '@fontsource/roboto/700.css';
 import './App.css';
 
 import React from 'react';
-import { ThemeProvider, Slide } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 import SearchBar from './components/SearchBar';
 import CountriesBlock from './components/CountriesBlock';
@@ -20,7 +20,6 @@ const App = () => {
   const containerRef = React.useRef(null);
   const [countries, setCountries] = useState([]);
   const [search, setSearch] = useState('');
-  const [slide, setSlide] = useState(false)
   const [mode, switchMode] = useState('dark')
 
 const theme = createTheme({
@@ -70,13 +69,6 @@ getAll().then(res => {
   })
 }, []);
 
-const onFB = () => {
-  setSlide((prev) => !prev)
-  console.log('lol')
-}
-
-window.fb = onFB;
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -85,8 +77,7 @@ window.fb = onFB;
         <SearchBar 
                    handleChange={handleChange}
                    toggle={toggle}
-                   mode={mode}
-                   onFB={onFB} />
+                   mode={mode} />
         <CountriesBlock search={search.replace(/[^a-z\s]/gi, '')} countries={countries} />
         <Footer />
       </div>
