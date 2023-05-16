@@ -1,0 +1,62 @@
+.App {
+  text-align: center;
+  min-width: 300px;
+  position: relative;
+  min-height: 80svh;
+  vertical-align: center;
+}
+
+
+.search-bar {
+  padding-top: 200px;
+  max-width: 600px;
+  margin-inline: auto;
+  padding: 20px 20px 0 0;
+
+}
+
+.search-bar input:focus {
+  .search-bar {
+  padding-top: 0px;
+}
+}
+
+.country-block {
+  text-align: left;
+  padding: 20px;
+  max-width: 900px;
+  margin: auto;
+}
+
+ul {
+  text-align: left;
+  list-style-type: none;
+  margin-left: -10%;
+  margin-top: 0;
+}
+
+.App img {
+  max-width: 100%;
+  border: 1px solid;
+}
+
+.background {
+  opacity: 0.03;
+  transform: scale(2);
+  top: 0;
+  transform-origin: top;
+  min-height: 100%;
+  aspect-ratio: 1.4/1;
+
+  mask-repeat: inherit;
+  /* max-width: 100%; */
+  max-height: 120%;
+  border: 2px solid;
+  position: fixed;
+
+}
+
+.caption {
+  display: block;
+  padding-bottom: 10px;
+}
