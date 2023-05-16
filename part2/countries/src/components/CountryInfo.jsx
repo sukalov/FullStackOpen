@@ -2,7 +2,6 @@ import { Typography, Grid } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import {AccountBalance, MapOutlined, Language, Flag} from "@mui/icons-material"
 import Paper from '@mui/material/Paper';
-import { GridRowSpacingParams } from '@mui/x-data-grid';
 
 const Cell = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fefeef',
