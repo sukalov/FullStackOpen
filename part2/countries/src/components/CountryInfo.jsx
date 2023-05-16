@@ -28,7 +28,7 @@ const CountryInfo = ({country, header=true}) => {
                             <Cell>
                             <Typography variant="caption" className="caption" ><>
                                 <AccountBalance sx={{fontSize:'1rem', margin:'0 5px -2px 0'}}></AccountBalance>
-                                capital{typeof country.capital !== 'object' || (country.capital.length > 2 ? `s` : null)}: 
+                                capital{typeof country.capital !== 'object' || (country.capital.length > 1 ? `s` : null)}: 
                             </></Typography>
                                     {typeof country.capital !== 'object' ? <span key={country.name.common}>—</span> :
                                         <span>{

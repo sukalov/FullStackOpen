@@ -5,7 +5,7 @@ import CountryInfo from "./CountryInfo";
 const CountriesList = ({countries, search}) => {
 
     return (
-    (countries.length >= 10 && search != '') ? 
+    (countries.length > 10 && search != '') ? 
         <Typography align="center">
             {countries.length} is too many matches...
         </Typography> :
