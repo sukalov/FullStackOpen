@@ -1,24 +1,26 @@
 import { Accordion, AccordionSummary, AccordionDetails, Typography } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CountryInfo from "./CountryInfo";
+import { useState } from "react";
 
-const CountriesList = ({countries, search}) => {
-
+const CountriesList = ({countries, search, expandedItems, weather, setWeather, kkey, setKey}) => {
+    
     return (
-    (countries.length > 10 && search != '') ? 
+    (countries.length > 10 && search !== '') ? 
         <Typography align="center">
             {countries.length} is too many matches...
         </Typography> :
-        (countries.length != 0 && search != '') ?
+        (countries.length !== 0 && search !== '') ?
         <div>
             {countries
             .map(
                 (country, i) => {
                     return (
-                        <Accordion sx={{
+                        <Accordion square sx={{
                             marginTop: '5px',
                             border: '1px solid transparent'
-                          }} key={country.name.common}>
+                          }} key={country.name.common}
+                          expanded={expandedItems}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 id={`panel${i+1}-header`}
@@ -29,13 +31,11 @@ const CountriesList = ({countries, search}) => {
                             </AccordionSummary>
                             
                             <AccordionDetails sx={{marginTop: '-15px'}}>
-                                <CountryInfo country={country} header={false} />
+                                <CountryInfo search={search} country={country} header={false} weather={weather} setWeather={setWeather} kkey={kkey} setKey={setKey} />
                             </AccordionDetails>
                     </Accordion>
                 )}
             )}
-        </div> : search === '' ? null : <Typography align="center">Nothing found!</Typography>
-    )
-}
+        </div> : search === '' ? null : <Typography align="center">Nothing found!</Typography>)}
 
 export default CountriesList;
