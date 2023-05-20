@@ -1,10 +1,10 @@
 .App {
   text-align: center;
-  min-width: 200px;
+  min-width: 320px;
   position: relative;
   min-height: 100svh;
   vertical-align: center;
-  padding-bottom: 30px;
+  padding-bottom: 50px;
 }
 
 
@@ -75,6 +75,7 @@ footer {
   padding-top: 30px;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-around;
   display: space-around;
   font-size: small;
@@ -82,7 +83,7 @@ footer {
   position: absolute;
   padding: 10px;
   width: 100%;
-  text-align: right;
+  text-align: center;
 }
 
 footer a {
@@ -90,5 +91,5 @@ footer a {
 }
 
 footer p {
-  margin: 0
+  margin: 0 5px;
 }
