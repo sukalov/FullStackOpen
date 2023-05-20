@@ -65,7 +65,7 @@ const Weather = ({ weather, setWeather, country, header, search}) => {
                 </Grid> 
                 :
                 <Typography align="center">
-                    <Skeleton height={60} sx={{width: '80%', margin: 'auto', marginTop: '-15px'}}></Skeleton>
+                    <Skeleton height={160} sx={{width: '100%', maxWidth:'400px', margin: 'auto', marginTop: '-15px'}}></Skeleton>
                 </Typography>
                 }
               </Cell>
