@@ -35,7 +35,7 @@ ul {
   margin-top: 0;
 }
 
-.App img {
+.App img.flag {
   max-width: 100%;
   border: 1px solid;
 }

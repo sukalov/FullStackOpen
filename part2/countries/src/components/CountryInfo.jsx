@@ -1,7 +1,7 @@
 import React from "react";
-import { Typography, Grid, Skeleton } from "@mui/material";
+import { Typography, Grid } from "@mui/material";
 import { useEffect, useCallback, useState } from "react";
-import manageWeather from "../services/manageWeather";
+import Weather from "./Weather";
 import { styled } from "@mui/material/styles";
 import {
   AccountBalance,
@@ -23,19 +23,8 @@ const Cell = styled(Paper)(({ theme }) => ({
 }));
 
 const CountryInfo = ({ search, country, header = true, weather, setWeather, kkey, setKey}) => {
-
-useEffect(() => {
-    let hasWeather = weather[country.name.common] !== undefined;
-
-    if (header && !hasWeather) {
-      manageWeather(weather, country)
-      .then(res => {if (!hasWeather) {setWeather(res)
-      }
-    return () => {hasWeather = true}})
-      .catch(e => console.log(e))
-    }
-  }, [])
   
+  if (header) console.log(country)
 
   if (country !== undefined) {
     return (
@@ -141,53 +130,19 @@ useEffect(() => {
                 flag:
               </Typography>
               <img
+                className="flag"
                 src={country.flags.png}
                 alt={`the flag of ${country.name.common}`}
               />
             </Cell>
           </Grid>
-          {weather[country.name.common] !== undefined ?
-            <Grid item xs={12}>
-              <Cell>
-                <Typography
-                  variant="caption"
-                  className="caption"
-                  xs={{ marginBlock: "-5px" }}
-                >
-                  <Thermostat
-                    sx={{ fontSize: "1.1rem", margin: "0 5px -3px 0" }}
-                  >
-                    Building
-                  </Thermostat>
-                  weather in {country.capital}:
-                </Typography>
-                <Typography>
-                  {weather[country.name.common].data.current.temp_c}
-                </Typography>
-              </Cell>
-            </Grid> : 
-            (
-              <Grid item xs={12}>
-              <Cell>
-                <Typography
-                  variant="caption"
-                  className="caption"
-                  xs={{ marginBlock: "-5px" }}
-                >
-                  <Thermostat
-                    sx={{ fontSize: "1.1rem", margin: "0 5px -3px 0" }}
-                  >
-                    Building
-                  </Thermostat>
-                  weather in {country.capital}:
-                </Typography>
-                <Typography align="center">
-                  <Skeleton height={60} sx={{width: '80%', margin: 'auto', marginTop: '-15px'}}></Skeleton>
-                </Typography>
-              </Cell>
-            </Grid>
-            )
-          }
+          {typeof country.capital !== "object" ? null :
+            <Weather 
+              weather={weather}
+              setWeather={setWeather}
+              country={country}
+              header={header}
+              />}
         </Grid>
       </div>
     );

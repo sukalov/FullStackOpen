@@ -1,6 +1,7 @@
 import { getWeather } from "./apiRequests";
 
-const manageWeather = async (weather, country) => {
+const manageWeather = async (weather, country, setWeather) => {
+    try {
   const now = Math.floor(Date.now() / 1000);
   const interval = 3600;
   let newWeather = { ...weather };
@@ -15,10 +16,11 @@ const manageWeather = async (weather, country) => {
         data: res,
       };
       newWeather[country.name.common] = countryWeather;
-      return newWeather;
+      setWeather(newWeather);
     });
   };
-  return newWeather
-};
+} catch (err) {
+    console.error(err)}
+}
 
 export default manageWeather;
