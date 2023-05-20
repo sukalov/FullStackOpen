@@ -13,9 +13,7 @@ const CountriesList = ({
   search,
   expandedItems,
   weather,
-  setWeather,
-  kkey,
-  setKey,
+  setWeather
 }) => {
   const openCountry = (country) => {
     manageWeather(weather, country, setWeather);
@@ -59,8 +57,6 @@ const CountriesList = ({
                 header={false}
                 weather={weather}
                 setWeather={setWeather}
-                kkey={kkey}
-                setKey={setKey}
               />
             </AccordionDetails>
           </Accordion>

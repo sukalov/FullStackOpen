@@ -9,9 +9,8 @@ const getAll = () => {
 
 const getWeather = (country) => {
   return axios
-    .get(`${weatherUrl}?key=${process.env.REACT_APP_WEATHER_API_KEY2}&q=${country.capitalInfo.latlng[0]},${country.capitalInfo.latlng[1]}&aqi=no`)
-    .then((res) => res.data)
-    .catch(e => console.log('===', e))
+  .get(`${weatherUrl}?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${country.capitalInfo.latlng[0]},${country.capitalInfo.latlng[1]}&aqi=no`)
+  .then((res) => res.data)
 };
 
 export { getAll, getWeather };

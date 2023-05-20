@@ -1,8 +1,7 @@
-import { Thermostat } from "@mui/icons-material"
-import { Grid, Typography, Skeleton } from "@mui/material"
+import { Thermostat, Air } from "@mui/icons-material"
+import { Grid, Typography, Skeleton, Alert } from "@mui/material"
 import manageWeather from "../services/manageWeather";
 import { useEffect } from "react";
-
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 
@@ -17,11 +16,10 @@ const Cell = styled(Paper)(({ theme }) => ({
 }));
 
 
-const Weather = ({ weather, setWeather, country, header, search}) => {
 
-    console.log(search, 'TOP');
+const Weather = ({ weather, setWeather, country, header, search}) => {
+    
     useEffect(() => {
-        console.log(search)
       if (header) {
         manageWeather(weather, country, setWeather)
           .catch((e) => console.log(e));
@@ -30,7 +28,6 @@ const Weather = ({ weather, setWeather, country, header, search}) => {
 
     return (
         <>
-        {weather[country.name.common] !== undefined ?
             <Grid item xs={12}>
               <Cell>
                 <Typography
@@ -40,43 +37,40 @@ const Weather = ({ weather, setWeather, country, header, search}) => {
                 >
                   <Thermostat
                     sx={{ fontSize: "1.1rem", margin: "0 5px -3px 0" }}
-                  >
-                    Building
-                  </Thermostat>
+                  />
                   weather in {country.capital[0]}:
                 </Typography>
-                <Grid container>
-                    <Grid item xs={4}>
-                        <img className='weather-icon' alt={weather[country.name.common].data.current.condition.text} title={weather[country.name.common].data.current.condition.text} src={weather[country.name.common].data.current.condition.icon} ></img>
-                        <Typography display='inline' fontSize='1.2rem'>
-                            {weather[country.name.common].data.current.temp_c} °C
+                {weather[country.name.common] !== undefined ?
+                weather[country.name.common].error ? 
+                <Alert severity="error" sx={{width: '70%', minWidth: '220px', margin: '5px auto 0 auto'}}>{weather[country.name.common].error}</Alert> :
+                <Grid container sx={{maxWidth:'400px', margin:'auto'}}>
+                    <Grid item xs={5} sx={{ display:'flex', alignItems:'center', justifyContent:'space-around', padding:'3px'}}>
+                        <img
+                        className='weather-icon'
+                        alt={weather[country.name.common].data.current.condition.text}
+                        title={weather[country.name.common].data.current.condition.text}
+                        src={require(`../weather_icons/${weather[country.name.common].data.current.is_day}/${weather[country.name.common].data.current.condition.code}.svg`)}
+                        />
+                    </Grid>
+                    <Grid item xs={3} sx={{ display:'flex', alignItems:'center', justifyContent:'space-around', padding:'3px'}}>
+                        <Typography fontWeight={100} display='inline' fontSize='3rem' margin={0}>
+                            {weather[country.name.common].data.current.temp_c}°
                         </Typography>
                     </Grid>
-                </Grid>
-              </Cell>
-            </Grid> : 
-            (
-              <Grid item xs={12}>
-              <Cell>
-                <Typography
-                  variant="caption"
-                  className="caption"
-                  xs={{ marginBlock: "-5px" }}
-                >
-                  <Thermostat
-                    sx={{ fontSize: "1.1rem", margin: "0 5px -3px 0" }}
-                  >
-                    Building
-                  </Thermostat>
-                  weather in {country.capital[0]}:
-                </Typography>
+                    <Grid item xs={4} sx={{ display:'flex', alignItems:'center', flexDirection:'column', justifyContent:'center', padding:'3px'}}>
+                        <Air className="air-icon" />
+                        <Typography fontSize='1.2rem' margin={0}>
+                                {weather[country.name.common].data.current.wind_kph} km/h
+                        </Typography>
+                    </Grid>
+                </Grid> 
+                :
                 <Typography align="center">
-                  <Skeleton height={60} sx={{width: '80%', margin: 'auto', marginTop: '-15px'}}></Skeleton>
+                    <Skeleton height={60} sx={{width: '80%', margin: 'auto', marginTop: '-15px'}}></Skeleton>
                 </Typography>
+                }
               </Cell>
-            </Grid>
-            )
-          }
+            </Grid> 
           </>
     )
 }

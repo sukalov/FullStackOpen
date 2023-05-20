@@ -20,13 +20,13 @@ const Cell = styled(Paper)(({ theme }) => ({
   minHeight: "100%",
 }));
 
-const CountryInfo = ({ search, country, header = true, weather, setWeather, kkey, setKey}) => {
+const CountryInfo = ({ search, country, header = true, weather, setWeather}) => {
   
   // if (header) console.log(country)
 
   if (country !== undefined) {
     return (
-      <div className="country-info" id={kkey}>
+      <div className="country-info">
         <Grid container spacing={1}>
           <Grid item xs={12}>
             {header ? (

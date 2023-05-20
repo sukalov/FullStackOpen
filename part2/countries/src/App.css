@@ -1,9 +1,10 @@
 .App {
   text-align: center;
-  min-width: 300px;
+  min-width: 200px;
   position: relative;
-  min-height: 80svh;
+  min-height: 100svh;
   vertical-align: center;
+  padding-bottom: 30px;
 }
 
 
@@ -41,10 +42,12 @@ ul {
 }
 
 img.weather-icon {
-  margin-bottom: -12px;
-  margin-right: 5px;
-  max-width: 2.5rem;
-  display: inline;
+  margin: -20px 10px 0 0;
+  max-width: 100%;
+}
+
+.air-icon {
+  margin-right: 10px;
 }
 
 .background {
@@ -66,4 +69,26 @@ img.weather-icon {
 .caption {
   display: block;
   padding-bottom: 10px;
+}
+
+footer {
+  padding-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  display: space-around;
+  font-size: small;
+  bottom: 0;
+  position: absolute;
+  padding: 10px;
+  width: 100%;
+  text-align: right;
+}
+
+footer a {
+  color: gray
+}
+
+footer p {
+  margin: 0
 }

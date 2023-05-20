@@ -5,9 +5,7 @@ const CounriesBlock = ({
   search,
   countries,
   weather,
-  setWeather,
-  kkey,
-  setKey,
+  setWeather
 }) => {
   const filteredCountries = countries.filter(
     (country) =>
@@ -22,16 +20,12 @@ const CounriesBlock = ({
           countries={filteredCountries}
           weather={weather}
           setWeather={setWeather}
-          kkey={kkey}
-          setKey={setKey}
         />
       ) : (
         <CountryInfo
           country={filteredCountries[0]}
           weather={weather}
           setWeather={setWeather}
-          kkey={kkey}
-          setKey={setKey}
           search={search}
         />
       )}
