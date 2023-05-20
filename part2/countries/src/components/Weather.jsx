@@ -17,14 +17,16 @@ const Cell = styled(Paper)(({ theme }) => ({
 }));
 
 
-const Weather = ({ weather, setWeather, country, header}) => {
+const Weather = ({ weather, setWeather, country, header, search}) => {
 
+    console.log(search, 'TOP');
     useEffect(() => {
-      if (header && weather[country.name.common] === undefined) {
+        console.log(search)
+      if (header) {
         manageWeather(weather, country, setWeather)
           .catch((e) => console.log(e));
-      }
-    }, []);
+      } // eslint-disable-next-line
+    }, [search]);
 
     return (
         <>
@@ -34,7 +36,7 @@ const Weather = ({ weather, setWeather, country, header}) => {
                 <Typography
                   variant="caption"
                   className="caption"
-                  xs={{ marginBlock: "-5px" }}
+                  sx={{ marginBlock: "0 -10px" }}
                 >
                   <Thermostat
                     sx={{ fontSize: "1.1rem", margin: "0 5px -3px 0" }}
@@ -43,10 +45,14 @@ const Weather = ({ weather, setWeather, country, header}) => {
                   </Thermostat>
                   weather in {country.capital[0]}:
                 </Typography>
-                <Typography>
-                  {weather[country.name.common].data.current.temp_c}
-                  <img src={weather[country.name.common].data.current.condition.icon} ></img>
-                </Typography>
+                <Grid container>
+                    <Grid item xs={4}>
+                        <img className='weather-icon' alt={weather[country.name.common].data.current.condition.text} title={weather[country.name.common].data.current.condition.text} src={weather[country.name.common].data.current.condition.icon} ></img>
+                        <Typography display='inline' fontSize='1.2rem'>
+                            {weather[country.name.common].data.current.temp_c} °C
+                        </Typography>
+                    </Grid>
+                </Grid>
               </Cell>
             </Grid> : 
             (

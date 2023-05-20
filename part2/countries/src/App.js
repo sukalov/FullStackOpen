@@ -7,8 +7,7 @@ import "./App.css";
 import { ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { useState, useEffect, useCallback } from "react";
-import manageWeather from "./services/manageWeather";
+import { useState, useEffect } from "react";
 
 import SearchBar from "./components/SearchBar";
 import CountriesBlock from "./components/CountriesBlock";
@@ -22,7 +21,6 @@ const App = () => {
   const [mode, switchMode] = useState("dark");
   const [weather, setWeather] = useState({});
   const [key, setKey] = useState(0)
-  // const []
 
   const theme = createTheme({
     transitions: {
@@ -46,8 +44,6 @@ const App = () => {
       mode: mode,
     },
   });
-
-  const forceUpdate = null
 
   const handleChange = (e) => {
     setSearch(e.target.value);

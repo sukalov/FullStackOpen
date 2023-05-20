@@ -6,7 +6,6 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CountryInfo from "./CountryInfo";
-import { useState } from "react";
 import manageWeather from "../services/manageWeather";
 
 const CountriesList = ({

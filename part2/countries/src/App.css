@@ -40,6 +40,13 @@ ul {
   border: 1px solid;
 }
 
+img.weather-icon {
+  margin-bottom: -12px;
+  margin-right: 5px;
+  max-width: 2.5rem;
+  display: inline;
+}
+
 .background {
   opacity: 0.03;
   transform: scale(2);

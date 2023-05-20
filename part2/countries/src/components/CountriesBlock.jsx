@@ -32,6 +32,7 @@ const CounriesBlock = ({
           setWeather={setWeather}
           kkey={kkey}
           setKey={setKey}
+          search={search}
         />
       )}
     </div>

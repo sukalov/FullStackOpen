@@ -1,6 +1,5 @@
 import React from "react";
 import { Typography, Grid } from "@mui/material";
-import { useEffect, useCallback, useState } from "react";
 import Weather from "./Weather";
 import { styled } from "@mui/material/styles";
 import {
@@ -8,7 +7,6 @@ import {
   MapOutlined,
   Language,
   Flag,
-  Thermostat,
 } from "@mui/icons-material";
 import Paper from "@mui/material/Paper";
 
@@ -24,7 +22,7 @@ const Cell = styled(Paper)(({ theme }) => ({
 
 const CountryInfo = ({ search, country, header = true, weather, setWeather, kkey, setKey}) => {
   
-  if (header) console.log(country)
+  // if (header) console.log(country)
 
   if (country !== undefined) {
     return (
@@ -32,7 +30,7 @@ const CountryInfo = ({ search, country, header = true, weather, setWeather, kkey
         <Grid container spacing={1}>
           <Grid item xs={12}>
             {header ? (
-              <Typography variant="h4" sx={{ marginBlock: "10px 30px" }}>
+              <Typography variant="h4" sx={{ marginBlock: "10px 20px" }}>
                 {" "}
                 {country.name.common}
               </Typography>
@@ -94,13 +92,13 @@ const CountryInfo = ({ search, country, header = true, weather, setWeather, kkey
               <Typography
                 variant="caption"
                 className="caption"
-                sx={{ marginBlock: "-5px" }}
+                sx={{ marginBlock: "0 -5px" }}
               >
                 <Language sx={{ fontSize: "1rem", margin: "0 5px -2px 0" }}>
                   Building
                 </Language>
                 language
-                {country.languages !== (undefined || null) ? '' :
+                {!country.hasOwnProperty('languages') ? '' :
                   (Object.keys(country.languages).length > 1 ? `s` : null)}
                 :
               </Typography>
@@ -142,6 +140,7 @@ const CountryInfo = ({ search, country, header = true, weather, setWeather, kkey
               setWeather={setWeather}
               country={country}
               header={header}
+              search={search}
               />}
         </Grid>
       </div>
