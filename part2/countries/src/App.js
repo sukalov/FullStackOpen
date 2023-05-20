@@ -20,7 +20,6 @@ const App = () => {
   const [search, setSearch] = useState("");
   const [mode, switchMode] = useState("dark");
   const [weather, setWeather] = useState({});
-  const [key, setKey] = useState(0)
 
   const theme = createTheme({
     transitions: {
@@ -70,8 +69,6 @@ const App = () => {
           countries={countries}
           weather={weather}
           setWeather={setWeather}
-          key={key}
-          setKey={setKey}
         />
         <Footer />
       </div>
