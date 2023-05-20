@@ -16,7 +16,6 @@ const Cell = styled(Paper)(({ theme }) => ({
 }));
 
 
-
 const Weather = ({ weather, setWeather, country, header, search}) => {
     
     useEffect(() => {
@@ -54,7 +53,7 @@ const Weather = ({ weather, setWeather, country, header, search}) => {
                     </Grid>
                     <Grid item xs={3} sx={{ display:'flex', alignItems:'center', justifyContent:'space-around', padding:'3px'}}>
                         <Typography fontWeight={100} display='inline' fontSize='3.5rem' margin={0}>
-                            {weather[country.name.common].data.current.temp_c}°
+                            {Math.round(weather[country.name.common].data.current.temp_c)}°
                         </Typography>
                     </Grid>
                     <Grid item xs={4} sx={{ display:'flex', alignItems:'center', flexDirection:'column', justifyContent:'center', padding:'3px'}}>
