@@ -1,12 +1,11 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import dbServices from './services/dbService'
 import filterAndSend from './services/newContact'
-
-import ContactList from './components/ContactList'
 import CreateContact from './components/CreateContact'
 import Filter from './components/Filter'
 import Notification from './components/Notification'
 
+const ContactList = React.lazy(() => import("./components/ContactList"));
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -18,6 +17,7 @@ const App = () => {
   useEffect(() => {
     dbServices.getAll()
          .then(response =>{
+          console.log(response)
           setPersons(response)
          })
   },[])
@@ -32,7 +32,7 @@ const App = () => {
       }).then(
         setTimeout(() => setMessage({message: null}), 3000)
       )
-      .catch(e => console.log(`============:>${e}`))
+      .catch(e => console.log(e))
   };
 
   const handleNameChange = e => setNewName(e.target.value)
@@ -50,10 +50,12 @@ const App = () => {
                        number={newNumber}
                        handlerNumber={handleNumberChange}
                         />
-        <ContactList   persons={persons}
-                       search={search}
-                       set={setPersons}
-                       setMessage={setMessage} />
+        <Suspense fallback={<p>Contacts are loading...</p>}>
+          <ContactList  persons={persons}
+                        search={search}
+                        set={setPersons}
+                        setMessage={setMessage} />
+        </Suspense>
     </div>
   )
 }
