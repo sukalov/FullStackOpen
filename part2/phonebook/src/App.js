@@ -17,7 +17,6 @@ const App = () => {
   useEffect(() => {
     dbServices.getAll()
          .then(response =>{
-          console.log(response)
           setPersons(response)
          })
   },[])

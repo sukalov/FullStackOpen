@@ -22,7 +22,6 @@ const filterAndSend = async (persons, newName, newNumber, set) => {
     return dbService.create(newPerson)
                     .then(res => {
                       set(personsCopy.concat(res))
-                      console.log(res)
                       return res
                     })
   } return new Promise (res => res)
