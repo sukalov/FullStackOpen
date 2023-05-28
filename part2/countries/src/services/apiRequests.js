@@ -1,9 +1,9 @@
 import axios from "axios";
-const url = "https://restcountries.com/v3.1/";
+const url = "https://countries-api.sokolovsky.dev/";
 const weatherUrl = "https://api.weatherapi.com/v1/current.json";
 
 const getAll = () => {
-  const result = axios.get(`${url}all`);
+  const result = axios.get(`${url}`);
   return result.then((res) => res.data);
 };
 
