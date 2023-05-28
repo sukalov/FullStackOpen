@@ -1,5 +1,5 @@
 import axios from "axios";
-const url = "https://countries-api.sokolovsky.dev/";
+const url = "https://countries-api.sukalov.dev/";
 const weatherUrl = "https://api.weatherapi.com/v1/current.json";
 
 const getAll = () => {
