@@ -12,6 +12,7 @@ const ContactList = ({ persons, search, set, setMessage }) => {
                 person.name.toLowerCase()
                 .match(search.toLowerCase()) !== null
                 )
+                .sort((p1, p2) => p1.name.localeCompare(p2.name))
                 .map(person =>
                 <tr key={person.id}>
                     <td> {person.name}</td>
