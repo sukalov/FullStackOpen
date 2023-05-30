@@ -4,6 +4,7 @@ import filterAndSend from './services/newContact'
 import CreateContact from './components/CreateContact'
 import Filter from './components/Filter'
 import Notification from './components/Notification'
+import Validation from './components/Validation'
 
 const ContactList = React.lazy(() => import("./components/ContactList"));
 
@@ -13,6 +14,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [search, setSearch] = useState('')
   const [message, setMessage] = useState({message: null})
+  const [numberValidation, setNumberValidation] = useState(false)
 
   useEffect(() => {
     dbServices.getAll()
@@ -21,9 +23,18 @@ const App = () => {
          })
   },[])
 
+  useEffect(() => {
+    let parsedNumber = newNumber.replace(/[())\s-]*/g, '')
+    if (parsedNumber.length === 10 && !isNaN(Number(parsedNumber))) {
+      setNumberValidation(true)
+    } else {setNumberValidation(false)}
+  }, [newNumber])
+
   const addPerson = e => {
+    let parsedNumber = newNumber.replace(/[())\s-]*/g, '')
+    parsedNumber = `${parsedNumber.slice(0,3)}-${parsedNumber.slice(3,6)}-${parsedNumber.slice(6,10)}`
     e.preventDefault();
-    filterAndSend(persons, newName, newNumber, setPersons)
+    filterAndSend(persons, newName, parsedNumber, setPersons)
       .then(res => {
         setMessage({message: `Action completed succesfully!`, status: 'good'})
         setNewName('')
@@ -31,7 +42,9 @@ const App = () => {
       }).then(
         setTimeout(() => setMessage({message: null}), 3000)
       )
-      .catch(e => console.log(e))
+      .catch(e => {
+        setMessage({message: e.response.data.error, status: 'bad'})
+      })
   };
 
   const handleNameChange = e => setNewName(e.target.value)
@@ -48,6 +61,7 @@ const App = () => {
                        handlerName={handleNameChange}
                        number={newNumber}
                        handlerNumber={handleNumberChange}
+                       numberValidation={numberValidation}
                         />
         <Suspense fallback={<p>Contacts are loading...</p>}>
           <ContactList  persons={persons}
