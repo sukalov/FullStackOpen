@@ -3,7 +3,9 @@ const Validation = ({status, newNumber}) => {
         paddingLeft: 30,
         textAlign: 'right',
         margin: 0,
-        fontSize: 'small'
+        fontSize: 'small',
+        position: 'absolute',
+        right: '10px'
     }
     if (!status) {style.color = 'red'}
     else {style.color = 'green'}
