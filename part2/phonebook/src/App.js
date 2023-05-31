@@ -31,7 +31,7 @@ const App = () => {
   }, [newNumber])
 
   const addPerson = e => {
-    let parsedNumber = newNumber.replace(/[())\s-]*/g, '')
+    let parsedNumber = newNumber.replace(/[())\s-]*/g, '').trim()
     parsedNumber = `${parsedNumber.slice(0,3)}-${parsedNumber.slice(3,6)}-${parsedNumber.slice(6,10)}`
     e.preventDefault();
     filterAndSend(persons, newName, parsedNumber, setPersons)
