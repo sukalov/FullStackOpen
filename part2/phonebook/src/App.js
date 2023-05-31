@@ -24,7 +24,7 @@ const App = () => {
   },[])
 
   useEffect(() => {
-    let parsedNumber = newNumber.replace(/[())\s-]*/g, '')
+    let parsedNumber = newNumber.replace(/[())\s-]*/g, '').trim()
     if (parsedNumber.length === 10 && !isNaN(Number(parsedNumber))) {
       setNumberValidation(true)
     } else {setNumberValidation(false)}
