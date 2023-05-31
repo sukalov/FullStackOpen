@@ -4,7 +4,6 @@ import filterAndSend from './services/newContact'
 import CreateContact from './components/CreateContact'
 import Filter from './components/Filter'
 import Notification from './components/Notification'
-import Validation from './components/Validation'
 
 const ContactList = React.lazy(() => import("./components/ContactList"));
 
