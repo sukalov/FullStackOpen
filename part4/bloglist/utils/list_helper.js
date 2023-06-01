@@ -1,8 +1,5 @@
 /* eslint-disable no-unused-vars */
-const dummy = (blogs) => {
-  console.log('')
-  return 1
-}
+const dummy = (blogs) => 1
 
 const totalLikes = (blogs) => (
   blogs.length === 0
