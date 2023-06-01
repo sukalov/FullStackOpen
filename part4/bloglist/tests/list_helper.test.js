@@ -101,12 +101,30 @@ describe('most blogs', () => {
     expect(listHelper.mostBlogs([{ author: 'test', likes: 4 }])).toEqual({ author: 'test', blogs: 1 })
   })
   test('of bloglist with no authors', () => {
-    expect(listHelper.mostBlogs([{ foo: 'bar', likes: 4 }, { likes: 2 }])).toEqual({ author: 'undefined', blogs: 2 })
+    expect(listHelper.mostBlogs([{ foo: 'bar', likes: 4 }, { likes: 2 }])).toEqual({})
   })
   test('of bloglist where 1 authored post and many anonymous', () => {
-    expect(listHelper.mostBlogs([{ foo: 'bar', likes: 4 }, { likes: 2 }, { author: 'test', likes: 4 }])).toEqual({ author: 'test', blogs: 1 })
+    expect(listHelper.mostBlogs([{ foo: 'bar', likes: 4 }, { likes: 2 }, { author: 'test', likes: 4 }, { likes: 0 }])).toEqual({ author: 'test', blogs: 1 })
   })
   test('of dummy blogs where best result is Robert C. Martin', () => {
     expect(listHelper.mostBlogs(blogs)).toEqual({ author: 'Robert C. Martin', blogs: 3 })
+  })
+})
+
+describe('most likes', () => {
+  test('of [] equals {}', () => {
+    expect(listHelper.mostLikes([])).toEqual({})
+  })
+  test('of 1 test blogpost', () => {
+    expect(listHelper.mostLikes([{ author: 'test', likes: 4 }])).toEqual({ author: 'test', likes: 4 })
+  })
+  test('of bloglist with no authors', () => {
+    expect(listHelper.mostLikes([{ foo: 'bar', likes: 4 }, { likes: 2 }])).toEqual({})
+  })
+  test('of bloglist where 1 authored post and many anonymous', () => {
+    expect(listHelper.mostLikes([{ foo: 'bar', likes: 4 }, { likes: 2 }, { author: 'test', likes: 4 }, { likes: 0 }])).toEqual({ author: 'test', likes: 4 })
+  })
+  test('of dummy blogs where best result is Edsger W. Dijkstra', () => {
+    expect(listHelper.mostLikes(blogs)).toEqual({ author: 'Edsger W. Dijkstra', likes: 17 })
   })
 })

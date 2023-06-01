@@ -21,14 +21,29 @@ const favoriteBlog = (blogs) => (
 )
 
 const mostBlogs = (blogs) => {
-  const likes = blogs.reduce((acc, blog) => {
+  // first reducer returns object {key=author: val=amount of posts}
+  const counted = blogs.reduce((acc, blog) => {
     acc[blog.author] = acc[blog.author] + 1 || 1
     return acc
   }, {})
-  return Object.keys(likes).reduce((acc, author) => (
-    (toString(author) === 'undefined' && acc.blogs > likes[author])
+  return Object.keys(counted).reduce((acc, author) => (
+    (author === 'undefined' || acc.blogs > counted[author])
       ? acc
-      : { author, blogs: likes[author] }), {})
+      : { author, blogs: counted[author] }), {})
+}
+
+const mostLikes = (blogs) => {
+  // first reducer returns object {key=author: val=total of likes}
+  const likes = blogs.reduce((acc, blog) => {
+    acc[blog.author] = acc[blog.author] + blog.likes || blog.likes
+    return acc
+  }, {})
+
+  return Object.keys(likes).reduce((acc, author) => (
+    (author === 'undefined' || acc.likes > likes[author])
+      ? acc
+      : { author, likes: likes[author] }
+  ), {})
 }
 
 module.exports = {
@@ -36,4 +51,5 @@ module.exports = {
   totalLikes,
   favoriteBlog,
   mostBlogs,
+  mostLikes,
 }
