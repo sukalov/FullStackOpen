@@ -58,6 +58,8 @@ const resetDB = async () => {
   await Promise.all(allPromises)
 }
 
+const stateOfDB = async () => (await Blog.find({})).map((b) => b.toJSON())
+
 module.exports = {
-  defaultBlogs, resetDB,
+  defaultBlogs, resetDB, stateOfDB,
 }

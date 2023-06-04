@@ -25,25 +25,24 @@ test('every blog has \'id\' property', async () => {
   response.body.forEach((blog) => expect(blog.id).toBeDefined())
 })
 
-test('a valid blog can be added', async () => {
+test('blog can be added succesfully', async () => {
   const newBlog = {
     title: 'Testing blog API with Jest',
     author: 'Matvey Sokolovsky',
-    url: 'https://github.'
+    url: 'https://github.com/sukalov/FullStackOpen/blob/main/part4/bloglist/tests/app_router.test.js',
     likes: 10,
   }
 
   await api
-    .post('/api/persons')
-    .send(newPerson)
+    .post('/api/blogs')
+    .send(newBlog)
     .expect(201)
     .expect('Content-Type', /application\/json/)
 
-  const peopleAtEnd = await helper.peopleInDb()
-  expect(peopleAtEnd).toHaveLength(helper.initialPersons.length + 1)
-
-  const names = peopleAtEnd.map((r) => r.name)
-  expect(names).toContain('Alexey Navalny')
+  const blogsAfter = await helper.stateOfDB()
+  const titles = blogsAfter.map((r) => r.title)
+  expect(blogsAfter).toHaveLength(helper.defaultBlogs.length + 1)
+  expect(titles).toContain('Testing blog API with Jest')
 })
 
 afterAll(async () => {

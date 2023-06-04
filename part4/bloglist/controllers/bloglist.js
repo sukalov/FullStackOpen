@@ -8,14 +8,10 @@ appRouter.get('/', async (request, response) => {
   response.json(blogs)
 })
 
-appRouter.post('/', (request, response) => {
+appRouter.post('/', async (request, response) => {
   const blog = new Blog({ ...request.body })
-  console.log({ ...request.body })
-  blog
-    .save()
-    .then((result) => {
-      response.status(201).json(result)
-    })
+  const res = await blog.save()
+  response.status(201).json(res)
 })
 
 module.exports = appRouter
