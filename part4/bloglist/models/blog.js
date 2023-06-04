@@ -1,8 +1,8 @@
 /* eslint-disable no-underscore-dangle, no-param-reassign */
 
-import mongoose from 'mongoose'
-import config from '../utils/config.js'
-import log from '../utils/log.js'
+const mongoose = require('mongoose')
+const config = require('../utils/config')
+const log = require('../utils/log')
 
 const blogSchema = new mongoose.Schema({
   title: String,

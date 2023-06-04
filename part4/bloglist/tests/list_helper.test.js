@@ -3,7 +3,7 @@
 // Unlike Node20, Jest is far from supporting  ES modules
 // The only way I managed to run Jest testing with ES modules was:
 // 1. add NODE_OPTIONS to env  2. run it with bun instead of npm, still not perfect but worked
-// Thus I decided to come back to CommonJS modules in case of testing
+// Thus I decided to come back to CommonJS modules......
 
 const listHelper = require('../utils/list_helper')
 

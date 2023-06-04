@@ -1,5 +1,5 @@
-import express from 'express'
-import Blog from '../models/blog.js'
+const express = require('express')
+const Blog = require('../models/blog')
 
 const appRouter = express.Router()
 
