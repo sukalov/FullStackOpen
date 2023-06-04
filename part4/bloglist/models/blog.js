@@ -7,11 +7,11 @@ const log = require('../utils/log')
 const blogSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   author: String,
   url: String,
-  likes: { type: Number, default: 0 }
+  likes: { type: Number, default: 0 },
 })
 
 const Blog = mongoose.model('Blog', blogSchema)
