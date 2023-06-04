@@ -3,12 +3,9 @@ const Blog = require('../models/blog')
 
 const appRouter = express.Router()
 
-appRouter.get('/', (request, response) => {
-  Blog
-    .find({})
-    .then((blogs) => {
-      response.json(blogs)
-    })
+appRouter.get('/', async (request, response) => {
+  const blogs = await Blog.find({})
+  response.json(blogs)
 })
 
 appRouter.post('/', (request, response) => {
@@ -21,4 +18,4 @@ appRouter.post('/', (request, response) => {
     })
 })
 
-export default appRouter
+module.exports = appRouter

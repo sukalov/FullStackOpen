@@ -7,8 +7,8 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
-app.use(morgan('dev'))
+if (process.env.NODE_ENV !== 'test') app.use(morgan('dev'))
 
 app.use('/api/blogs', appRouter)
 
-export default app
+module.exports = app
