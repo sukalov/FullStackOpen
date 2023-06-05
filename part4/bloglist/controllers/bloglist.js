@@ -14,7 +14,7 @@ appRouter.post('/', async (request, response) => {
     const res = await blog.save()
     response.status(201).json(res)
   } catch (error) {
-    response.status(400).json({ error: 'bad request'})
+    response.status(400).json({ error: 'bad request' })
   }
 })
 
