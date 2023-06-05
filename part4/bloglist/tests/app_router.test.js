@@ -92,6 +92,41 @@ describe('when making POST request', () => {
   })
 })
 
+describe('when we DELETE a blog by id', () => {
+  test('blog can be succesfully deleted with status 204', async () => {
+  // eslint-disable-next-line no-underscore-dangle
+    const goodId = helper.defaultBlogs[0]._id
+    await api.delete(`/api/blogs/${goodId}`).expect(204)
+
+    const blogsAfter = await helper.stateOfDB()
+    expect(blogsAfter).toHaveLength(helper.defaultBlogs.length - 1)
+  })
+  test('trying to refer to non-existent id returns 404', async () => {
+    const badId = '5a422a851b54a676234d17f6'
+    await api.delete(`/api/blogs/${badId}`).expect(404)
+
+    const blogsAfter = await helper.stateOfDB()
+    expect(blogsAfter).toHaveLength(helper.defaultBlogs.length)
+  })
+})
+// describe('when we DELETE a blog by id', () => {
+//   test('blog can be succesfully deleted with status 204', async () => {
+//     // eslint-disable-next-line no-underscore-dangle
+//     const goodId = helper.defaultBlogs[0]._id
+//     await api.delete(`/api/blogs/${goodId}`).expect(204)
+
+//     const blogsAfter = await helper.stateOfDB()
+//     expect(blogsAfter).toHaveLength(helper.defaultBlogs.length - 1)
+//   })
+//   test('trying to refer to non-existent id returns 404', async () => {
+//     const badId = '5a422a851b54a676234d17f6'
+//     await api.delete(`/api/blogs/${badId}`).expect(404)
+
+//     const blogsAfter = await helper.stateOfDB()
+//     expect(blogsAfter).toHaveLength(helper.defaultBlogs.length)
+//   })
+// })
+
 afterAll(async () => {
   await mongoose.connection.close()
 })
