@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
 const helper = require('./app_router_helper')
+const Blog = require('../models/blog')
 // const Blog = require('../models/blog.js')
 
 const api = supertest(app)
@@ -109,23 +110,25 @@ describe('when we DELETE a blog by id', () => {
     expect(blogsAfter).toHaveLength(helper.defaultBlogs.length)
   })
 })
-// describe('when we DELETE a blog by id', () => {
-//   test('blog can be succesfully deleted with status 204', async () => {
-//     // eslint-disable-next-line no-underscore-dangle
-//     const goodId = helper.defaultBlogs[0]._id
-//     await api.delete(`/api/blogs/${goodId}`).expect(204)
+describe('when updating specific blog', () => {
+  test('if blog is found, it can be updated', async () => {
+    // eslint-disable-next-line no-underscore-dangle
+    const goodId = helper.defaultBlogs[0]._id
+    await api.put(`/api/blogs/${goodId}`).send({ ...helper.defaultBlogs[0], likes: 999 }).expect(200)
 
-//     const blogsAfter = await helper.stateOfDB()
-//     expect(blogsAfter).toHaveLength(helper.defaultBlogs.length - 1)
-//   })
-//   test('trying to refer to non-existent id returns 404', async () => {
-//     const badId = '5a422a851b54a676234d17f6'
-//     await api.delete(`/api/blogs/${badId}`).expect(404)
+    const blogsAfter = await helper.stateOfDB()
+    const newBlog = blogsAfter.find(el => el.id === goodId)
+    expect(newBlog.likes).not.toEqual(helper.defaultBlogs[0].likes)
+  })
 
-//     const blogsAfter = await helper.stateOfDB()
-//     expect(blogsAfter).toHaveLength(helper.defaultBlogs.length)
-//   })
-// })
+  test('bad id returns 404', async () => {
+    const badId = '5a422a851b54a676234d17f6'
+    await api
+      .put(`/api/blogs/${badId}`)
+      .send({ ...helper.defaultBlogs[0], likes: 999 })
+      .expect(404)
+  })
+})
 
 afterAll(async () => {
   await mongoose.connection.close()
