@@ -18,4 +18,16 @@ appRouter.post('/', async (request, response) => {
   }
 })
 
+appRouter.delete('/:id', async (req, res) => {
+  try {
+    const ids = (await Blog.find({})).map((el) => el.id)
+    if (ids.includes(req.params.id)) {
+      await Blog.findByIdAndRemove(req.params.id)
+      res.status(204).send('content removed')
+    } else res.status(404).json({ error: 'content not found' })
+  } catch (err) {
+    res.status(404).json({ err })
+  }
+})
+
 module.exports = appRouter
