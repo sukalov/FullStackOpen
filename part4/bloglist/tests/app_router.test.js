@@ -46,6 +46,43 @@ test('blog can be added succesfully', async () => {
   expect(titles).toContain('Testing blog API with Jest')
 })
 
+test('blog with NO LIKES can be added succesfully with default value of 0', async () => {
+  const newBlog = {
+    title: 'Testing blog API with Jest',
+    author: 'Matvey Sokolovsky',
+    url: 'https://github.com/sukalov/FullStackOpen/blob/main/part4/bloglist/tests/app_router.test.js',
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const blogsAfter = await helper.stateOfDB()
+  const titles = blogsAfter.map((r) => r.title)
+  expect(blogsAfter).toHaveLength(helper.defaultBlogs.length + 1)
+  expect(titles).toContain('Testing blog API with Jest')
+
+  const addedBlog = blogsAfter.find((blog) => blog.title === 'Testing blog API with Jest')
+  expect(addedBlog.likes).toEqual(0)
+})
+
+test('blogs with missing data are responded with 400', async () => {
+  const newBadBlog = {
+    author: 'Matvey Sokolovsky',
+    url: 'https://github.com/sukalov/FullStackOpen/blob/main/part4/bloglist/tests/app_router.test.js',
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBadBlog)
+    .expect(400)
+
+  const blogsAfter = await helper.stateOfDB()
+  expect(blogsAfter).toHaveLength(helper.defaultBlogs.length)
+})
+
 afterAll(async () => {
   await mongoose.connection.close()
 })
