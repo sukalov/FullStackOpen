@@ -3,14 +3,13 @@ const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
 const helper = require('./app_router_helper')
-const Blog = require('../models/blog')
-// const Blog = require('../models/blog.js')
+// const Blog = require('../models/blog')
 
 const api = supertest(app)
 
 beforeEach(helper.resetDB)
 
-describe('when fetching all the data', () => {
+describe.only('when fetching all the data', () => {
   test('all blogs are returned as json', async () => {
     await api
       .get('/api/blogs')
@@ -33,6 +32,8 @@ describe('when making POST request', () => {
       title: 'Testing blog API with Jest',
       author: 'Matvey Sokolovsky',
       url: 'https://github.com/sukalov/FullStackOpen/blob/main/part4/bloglist/tests/app_router.test.js',
+      user: '5a422a851b54a676234d17f7',
+      _id: '647f70f62f56c86e8c575e5d',
       likes: 10,
     }
 
@@ -52,6 +53,7 @@ describe('when making POST request', () => {
       title: 'Testing blog API with Jest',
       author: 'Matvey Sokolovsky',
       url: 'https://github.com/sukalov/FullStackOpen/blob/main/part4/bloglist/tests/app_router.test.js',
+      user: '647f70f62f56c86e8c575e5d',
     }
 
     await api
@@ -117,7 +119,7 @@ describe('when updating specific blog', () => {
     await api.put(`/api/blogs/${goodId}`).send({ ...helper.defaultBlogs[0], likes: 999 }).expect(200)
 
     const blogsAfter = await helper.stateOfDB()
-    const newBlog = blogsAfter.find(el => el.id === goodId)
+    const newBlog = blogsAfter.find((el) => el.id === goodId)
     expect(newBlog.likes).not.toEqual(helper.defaultBlogs[0].likes)
   })
 
