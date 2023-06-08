@@ -1,6 +1,5 @@
-// eslint-disable-next-line import/no-unresolved
+/* eslint-disable import/no-extraneous-dependencies */
 require('express-async-errors')
-// eslint-disable-next-line import/no-extraneous-dependencies
 const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
 const User = require('../models/user')

@@ -4,7 +4,7 @@ Content-Type: application/json
 {
     "username": "mluukkai",
     "name": "Matti Luukkainen",
-    "password": "123",
+    "password": "12345678",
     "blogs": [
         "5a422a851b54a676234d17f7",
         "5a422aa71b54a676234d17f8",

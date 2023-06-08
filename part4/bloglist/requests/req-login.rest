@@ -1,0 +1,21 @@
+### no data resulting in 401
+POST http://localhost:3003/api/login
+
+###
+POST http://localhost:3003/api/login
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfdXNlcm5hbWUiOiJtbHV1a2thaSIsInVzZXJuYW1lIjoibWx1dWtrYWkiLCJpZCI6IjY0ODIzMmU0MmYwZDcyYmUzNTJmNTAzZCIsImlhdCI6MTY4NjI1ODg4MH0.mJawiGmSSuNGZ7IMzvvhEg1P5Ekhk57QPDMmJf7fQ00
+
+{
+    "username": "mluukkai",
+    "password": "12345678"
+}
+
+###
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+    "username": "mluukkai",
+    "password": "12345678"
+}
