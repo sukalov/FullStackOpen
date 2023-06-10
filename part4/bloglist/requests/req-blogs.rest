@@ -1,13 +1,12 @@
 ###
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfdXNlcm5hbWUiOiJtbHV1a2thaSIsInVzZXJuYW1lIjoibWx1dWtrYWkiLCJpZCI6IjY0ODIzMmU0MmYwZDcyYmUzNTJmNTAzZCIsImlhdCI6MTY4NjI2NTYwOSwiZXhwIjoxNjg2MjY1NjEwfQ.mkj7z_KYOZf1n9nyLvGw5sJ32EBL5ythDs18u_uGDiI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfdXNlcm5hbWUiOiJtbHV1a2thaSIsInVzZXJuYW1lIjoibWx1dWtrYWkiLCJpZCI6IjY0N2Y3Y2I2MTVlODM0MTY2M2M4ZjQ5NSIsImlhdCI6MTY4NjM4MDIwMCwiZXhwIjoxNjg2MzgzODAwfQ.g9A8c13sU5otZjDWOAk0HW1u0uwc-bowEtgPk_pIwIg
 
 {
     "title": "test",
     "author": "test",
     "url": "test",
-    "user": "647f7cb615e8341663c8f495",
     "_id": "64824c4aff3e7fee0a4ac6c5"
 }
 
@@ -16,13 +15,30 @@ GET http://localhost:3003/api/blogs
 
 ###
 DELETE http://localhost:3003/api/blogs/64824c4aff3e7fee0a4ac6c5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfdXNlcm5hbWUiOiJtbHV1a2thaSIsInVzZXJuYW1lIjoibWx1dWtrYWkiLCJpZCI6IjY0N2Y3Y2I2MTVlODM0MTY2M2M4ZjQ5NSIsImlhdCI6MTY4NjM4MDIwMCwiZXhwIjoxNjg2MzgzODAwfQ.g9A8c13sU5otZjDWOAk0HW1u0uwc-bowEtgPk_pIwIg
+
+### WRONG AUTH
+DELETE http://localhost:3003/api/blogs/64824c4aff3e7fee0a4ac6c5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfdXNlcm5hbWUiOiJzdWthbG92IiwidXNlcm5hbWUiOiJzdWthbG92IiwiaWQiOiI2NDgzOGY5ZDAyM2Y4YTA0YTVlNDJiNWEiLCJpYXQiOjE2ODYzNTk2NzcsImV4cCI6MTY4NjM2MzI3N30.3CDgd2P4lbgAOTkEKC0O9RKv6ybdfS4EILGSEG3Hhho
 
 ###
-PUT http://localhost:3003/api/blogs/647e3003f23dde3b813fca49
+PUT http://localhost:3003/api/blogs/64824c4aff3e7fee0a4ac6c5
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfdXNlcm5hbWUiOiJtbHV1a2thaSIsInVzZXJuYW1lIjoibWx1dWtrYWkiLCJpZCI6IjY0N2Y3Y2I2MTVlODM0MTY2M2M4ZjQ5NSIsImlhdCI6MTY4NjM1ODUxNCwiZXhwIjoxNjg2MzYyMTE0fQ.o2gs-FUieOf9yUBffejSgcD-mbT_iQnzyc-ON6GjTD8
 
 {
-    "title": "test",
-    "author": "test",
+    "title": "))))",
+    "author": "))))",
+    "url": "))))))))))"
+}
+
+### WRONG AUTH
+PUT http://localhost:3003/api/blogs/64824c4aff3e7fee0a4ac6c5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfdXNlcm5hbWUiOiJzdWthbG92IiwidXNlcm5hbWUiOiJzdWthbG92IiwiaWQiOiI2NDgzOGY5ZDAyM2Y4YTA0YTVlNDJiNWEiLCJpYXQiOjE2ODYzNTk2NzcsImV4cCI6MTY4NjM2MzI3N30.3CDgd2P4lbgAOTkEKC0O9RKv6ybdfS4EILGSEG3Hhho
+
+{
+    "title": "))))",
+    "author": "))))",
     "url": "))))))))))"
 }
