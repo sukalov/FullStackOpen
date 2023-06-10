@@ -47,13 +47,13 @@ const defaultBlogs = [
     user: '647f7cb615e8341663c8f495',
   },
   {
-    _id: '5a422bc61b54a676234d17fc',
+    _id: '6483bf6338b0f7827bd755e4',
     title: 'Type wars',
     author: 'Robert C. Martin',
     url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
     likes: 2,
     __v: 0,
-    user: '647f7cb615e8341663c8f495',
+    user: '64838f9d023f8a04a5e42b5a',
   },
 ]
 

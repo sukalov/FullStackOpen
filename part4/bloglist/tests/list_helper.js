@@ -62,6 +62,15 @@ const blogs = [
     __v: 0,
     user: '647f70f62f56c86e8c575e5d',
   },
+  {
+    _id: '5a422a851b54a676234d17f7',
+    title: 'React patterns',
+    author: 'Michael Chan',
+    url: 'https://reactpatterns.com/',
+    likes: 7,
+    __v: 0,
+    user: '647f70f62f56c86e7c575e5d',
+  },
 ]
 
 test('dummy returns one', () => {

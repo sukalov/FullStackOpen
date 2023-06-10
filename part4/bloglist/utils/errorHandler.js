@@ -6,17 +6,18 @@ class ValidationError extends Error {
 }
 
 // eslint-disable-next-line consistent-return
-const errorHandler = (error, request, response) => {
+const errorHandler = (error, request, response, next) => {
   if (error.name === 'CastError') {
-    return response.status(400).json({ error: 'malformatted id' })
+    response.status(400).json({ error: 'malformatted id' })
   } if (error.name === 'ValidationError') {
-    return response.status(400).json({ error: error.message })
+    response.status(400).json({ error: error.message })
   } if (error.name === 'JsonWebTokenError') {
-    return response.status(400).json({ error: error.message })
+    response.status(401).json({ error: error.message })
   } if (error.name === 'TokenExpiredError') {
-    return response.status(401).json({ error: 'token expired' })
+    response.status(401).json({ error: 'token expired' })
+  } else {
+    response.status(500).json({ error: error.message })
   }
-  response.status(500).json({ error: error.message })
 }
 
 module.exports = {
