@@ -2,12 +2,12 @@ const express = require('express')
 const Blog = require('../models/blog')
 const User = require('../models/user')
 const tokenExtractor = require('../utils/tokenExtractor')
-const validation = require('../utils/validation')
+const userExtractor = require('../utils/userExtractor')
 const { errorHandler } = require('../utils/errorHandler')
 
 const appRouter = express.Router()
 appRouter.use(tokenExtractor)
-appRouter.use(validation)
+appRouter.use(userExtractor)
 appRouter.use(errorHandler)
 
 appRouter.get('/', async (req, res) => {
@@ -15,7 +15,7 @@ appRouter.get('/', async (req, res) => {
   res.json(blogs)
 })
 
-appRouter.post('/', async (req, res) => { // req.user is added in 'validation' middleware
+appRouter.post('/', async (req, res) => {
   if (!req.user) { res.status(401).json({ error: 'authentication required' }) } else {
     try {
       const blog = new Blog({ user: req.user, ...req.body })
