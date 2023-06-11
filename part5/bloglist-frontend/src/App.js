@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-import Blog from './components/Blog'
 import blogService from './services/blogs'
 import BlogsBlock from './components/BlogsBlock'
 import Login from './components/Login'
 import login from './services/login'
-import ModeToggle from './components/ModeToggle'
+import TopPanel from './components/TopPanel'
+import CreateBlog from './components/CreateBlog'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -19,6 +19,18 @@ const App = () => {
     )  
   }, [])
 
+  useEffect(() => {
+    const tokenFromLocal = window.localStorage.getItem('token')
+    if (tokenFromLocal) {
+      setUser({ 
+        token: tokenFromLocal,
+        username: window.localStorage.getItem('username'),
+        name: window.localStorage.getItem('name')
+       })
+       blogService.setToken(tokenFromLocal)
+    }
+  }, [])
+
   const handleLogin = async (e) => {
     e.preventDefault()
     try {
@@ -27,20 +39,32 @@ const App = () => {
       window.localStorage.setItem('token', user.token)
       window.localStorage.setItem('username', user.username)
       window.localStorage.setItem('name', user.name)
-
+      blogService.setToken(user.token)
       setUsername('')
       setPassword('')
     } catch (err)
     {console.log(err);}
   }
 
+  const logout = () => {
+    window.localStorage.removeItem('token')
+    window.localStorage.removeItem('username')
+    window.localStorage.removeItem('name')
+    blogService.setToken(null)
+    setUser(null)
+}
+
   return (
     <main className={mode ? 'light' : 'dark'}>
-      <div className='bg-white dark:bg-stone-800 relative min-h-screen'>
-        <ModeToggle setMode={setMode} mode={mode} />
-        {user 
-          ? <BlogsBlock user={user} blogs={blogs} />
-          : <Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} handleLogin={handleLogin}/>
+      <div className='bg-white dark:bg-stone-800 relative border border-transparent min-h-screen p-0'>
+        <TopPanel setMode={setMode} mode={mode} logout={logout} user={user}/>
+        {!user 
+          ? <Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} handleLogin={handleLogin}/>
+          : 
+          <div>
+            <BlogsBlock user={user} blogs={blogs} />
+            <CreateBlog blogs={blogs} setBlogs={setBlogs} />
+          </div>
         }
       </div>
     </main>
