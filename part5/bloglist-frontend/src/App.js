@@ -72,7 +72,7 @@ const eventHappened = (err) => {
 }
 
   return (
-    <main className={`${mode}`}>
+    <main className={mode}>
       <div className='bg-white dark:bg-stone-800 border border-transparent min-h-screen w-full p-0 fixed'>
         </div>
         <div className='relative border border-transparent min-h-screen p-0'>
