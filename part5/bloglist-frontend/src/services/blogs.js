@@ -2,8 +2,8 @@ import axios from 'axios'
 const url = '/api/blogs'
 
 const getAll = () => {
-  const request = axios.get(url)
-  return request.then(response => response.data)
+    const request = axios.get(url)
+    return request.then(response => response.data)
 }
 
 let token

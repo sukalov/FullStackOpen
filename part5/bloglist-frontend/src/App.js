@@ -13,13 +13,16 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [mode, setMode] = useState('light')
-  const [error, setError] = useState(null)
+  const [event, setEvent] = useState(null)
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
-  }, [])
+    try {
+    blogService
+      .getAll()
+      .then(blogs => setBlogs(blogs))
+  } catch (err) {
+    console.log(err)
+  }}, [])
 
   useEffect(() => {
     const tokenFromLocal = window.localStorage.getItem('token')
@@ -59,23 +62,30 @@ const App = () => {
 }
 
 const errorHappened = (err) => {
-  setError(err)
-  setTimeout(() => setError(null), 3800)
+  setEvent({ message: err, status: 'bad' })
+  setTimeout(() => setEvent(null), 3800)
+}
+
+const eventHappened = (err) => {
+  setEvent({ message: err, status: 'good' })
+  setTimeout(() => setEvent(null), 3800)
 }
 
   return (
-    <main className={mode}>
-      <div className='bg-white dark:bg-stone-800 relative border border-transparent min-h-screen p-0'>
+    <main className={`${mode}`}>
+      <div className='bg-white dark:bg-stone-800 border border-transparent min-h-screen w-full p-0 fixed'>
+        </div>
+        <div className='relative border border-transparent min-h-screen p-0'>
         <TopPanel setMode={setMode} mode={mode} logout={logout} user={user}/>
         {!user 
           ? <Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} handleLogin={handleLogin} errorHappened={errorHappened}/>
           : 
           <div>
             <BlogsBlock user={user} blogs={blogs} />
-            <CreateBlog blogs={blogs} setBlogs={setBlogs} />
+            <CreateBlog blogs={blogs} setBlogs={setBlogs} eventHappened={eventHappened} errorHappened={errorHappened}/>
           </div>
         }
-        {error && <Alert error={error}/>}
+        {event && <Alert event={event}/>}
       </div>
     </main>
   )

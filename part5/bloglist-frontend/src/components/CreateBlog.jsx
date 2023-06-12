@@ -1,14 +1,19 @@
 import blogServices from "../services/blogs"
 
-const CreateBlog = ({ blogs, setBlogs }) => {
+const CreateBlog = ({ blogs, setBlogs, eventHappened, errorHappened }) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const input = { title: e.target[0].value, url: e.target[1].value, author: e.target[2].value }
-        const response = await blogServices.create(input)
-        setBlogs(prev => ([...prev, response]))
+        try {
+            const input = { title: e.target[0].value, url: e.target[1].value, author: e.target[2].value }
+            const response = await blogServices.create(input)
+            setBlogs(prev => ([...prev, response]))
+            eventHappened('new blog added succesfully')
+        } catch (err) {
+            errorHappened('failed to add new blog')
+        }
     }
     return (
-        <form onSubmit={handleSubmit} className="px-4 sm:px-8 py-6 rounded-md bg-orange-50 dark:bg-stone-600 shadow-xl dark:shadow-stone-900 flex mx-6 sm:mx-auto flex-1 flex-col items-stretch max-w-xl">
+        <form onSubmit={handleSubmit} className="px-4 sm:px-8 py-6 rounded-md bg-orange-50 dark:bg-stone-600 shadow-xl dark:shadow-stone-900 flex mx-6 sm:mx-auto flex-1 flex-col items-stretch max-w-xl mb-10">
         <h3 className="dark:text-orange-50 my-1 text-neutral-600 block mx-auto">
             add blogs to the collection
         </h3>
