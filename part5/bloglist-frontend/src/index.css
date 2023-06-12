@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.animate-bounce-in {
+    animation: appear 4s ease 1;
+  }
+
+@keyframes appear {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, 2000px);
+    }
+    10% {
+      opacity: 1;
+      transform: translate(-50%, -30px);
+    }
+    15% { 
+        transform: translate(-50%, 10px);
+     }
+    20% { transform: translate(-50%, 0) }
+    90% { opacity: 1 }
+    100% { 
+        transform: translate(-50%, 0);
+        opacity: 0 
+    }
+  }
