@@ -76,7 +76,7 @@ const CreateBlog = forwardRef(({ setBlogs, eventHappened, errorHappened }, refs)
             />
         </div>
         <button className=" bg-orange-400 dark:bg-amber-600 px-4 py-2 mt-6 text-center text-sm font-semibold inline-block text-white cursor-pointer uppercase transition duration-200 ease-in-out rounded-md  hover:bg-orange-600 dark:hover:bg-amber-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 dark:focus-visible:ring-amber-600 focus-visible:ring-offset-2 dark:ring-offset-stone-600 active:scale-95 max-w-xs mx-auto" type="submit" >add blog</button>
-            <button type="button" className="absolute top-2 right-2 hover:opacity-50 transition duration-150" onClick={toggleVisibility}>
+            <button type="button" className="absolute top-2 right-2 hover:opacity-50 transition duration-150 dark:text-orange-100" onClick={toggleVisibility}>
             <X size={18} /> </button>
     </form>
     )
