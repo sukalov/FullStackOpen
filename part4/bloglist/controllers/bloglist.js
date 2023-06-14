@@ -26,6 +26,7 @@ appRouter.post('/', async (req, res) => {
       await User.findByIdAndUpdate(req.user, { blogs: user.blogs })
       res.status(201).json(savedBlog)
     } catch (error) {
+      console.log(req.body)
       res.status(400).json({ error })
     }
   }

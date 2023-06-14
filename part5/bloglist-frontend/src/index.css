@@ -4,7 +4,7 @@
 
 
 .animate-bounce-in {
-    animation: appear 4s ease 1;
+    animation: appear 3s ease 1;
   }
 
 @keyframes appear {

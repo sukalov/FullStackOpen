@@ -1,4 +1,27 @@
-const Login = ({ user, username, setUsername, password, setPassword, handleLogin }) => {
+import { useState } from "react"
+import login from "../services/login"
+import blogServices from '../services/blogs.js'
+
+const Login = ({ errorHappened, setUser }) => {
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+
+    const handleLogin = async (e) => {
+        e.preventDefault()
+        try {
+          const user = await login({ username, password })
+          setUser(user)
+          window.localStorage.setItem('token', user.token)
+          window.localStorage.setItem('username', user.username)
+          window.localStorage.setItem('name', user.name)
+          blogServices.setToken(user.token)
+          setUsername('')
+          setPassword('')
+        } catch (err) {
+          errorHappened(err.response.data.error)
+        }
+      }
+
     return (
     <div className="flex h-screen items-center p-2">
         <form onSubmit={handleLogin} className="px-8 xsm:px-8 py-6 rounded-md bg-orange-50 dark:bg-stone-600 shadow-xl dark:shadow-stone-900 flex mx-auto flex-1 flex-col items-stretch max-w-sm">

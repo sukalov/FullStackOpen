@@ -1,19 +1,34 @@
+import { forwardRef, useImperativeHandle, useRef, useState } from "react"
 import blogServices from "../services/blogs"
+import { X } from "lucide-react"
 
-const CreateBlog = ({ blogs, setBlogs, eventHappened, errorHappened }) => {
+const CreateBlog = forwardRef(({ setBlogs, eventHappened, errorHappened }, refs) => {
+
+    const [visible, setVisible] = useState(false)
+
+    const toggleVisibility = () => {
+        setVisible(prev => !prev)
+    }
+    
+    useImperativeHandle(refs, () => {
+        return { setVisible }
+    })
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
             const input = { title: e.target[0].value, url: e.target[1].value, author: e.target[2].value }
             const response = await blogServices.create(input)
-            setBlogs(prev => ([...prev, response]))
+            await setBlogs(prev => ([...prev, response]))
             eventHappened('new blog added succesfully')
+            toggleVisibility()
+            e.target.reset()
         } catch (err) {
             errorHappened('failed to add new blog')
         }
     }
     return (
-        <form onSubmit={handleSubmit} className="px-4 sm:px-8 py-6 rounded-md bg-orange-50 dark:bg-stone-600 shadow-xl dark:shadow-stone-900 flex mx-6 sm:mx-auto flex-1 flex-col items-stretch max-w-xl mb-10">
+        <form  onSubmit={handleSubmit} id='create-blog' className={`px-4 sm:px-8 py-6 rounded-md bg-orange-50 dark:bg-stone-600 shadow-xl dark:shadow-stone-900 flex mx-6 sm:mx-auto flex-1 flex-col items-stretch max-w-xl  mb-10 ${!visible ? 'hidden' : 'relative'}`}>
         <h3 className="dark:text-orange-50 my-1 text-neutral-600 block mx-auto">
             add blogs to the collection
         </h3>
@@ -61,8 +76,10 @@ const CreateBlog = ({ blogs, setBlogs, eventHappened, errorHappened }) => {
             />
         </div>
         <button className=" bg-orange-400 dark:bg-amber-600 px-4 py-2 mt-6 text-center text-sm font-semibold inline-block text-white cursor-pointer uppercase transition duration-200 ease-in-out rounded-md  hover:bg-orange-600 dark:hover:bg-amber-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 dark:focus-visible:ring-amber-600 focus-visible:ring-offset-2 dark:ring-offset-stone-600 active:scale-95 max-w-xs mx-auto" type="submit" >add blog</button>
+            <button type="button" className="absolute top-2 right-2 hover:opacity-50 transition duration-150" onClick={toggleVisibility}>
+            <X size={18} /> </button>
     </form>
     )
-}
+})
 
 export default CreateBlog

@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import blogService from './services/blogs'
 import BlogsBlock from './components/BlogsBlock'
 import Login from './components/Login'
-import login from './services/login'
 import TopPanel from './components/TopPanel'
 import CreateBlog from './components/CreateBlog'
 import Alert from './components/Alert'
@@ -10,10 +9,9 @@ import Alert from './components/Alert'
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
   const [mode, setMode] = useState('light')
   const [event, setEvent] = useState(null)
+  const createBlogRef = useRef()
 
   useEffect(() => {
     try {
@@ -37,22 +35,6 @@ const App = () => {
     if (window.localStorage.getItem('mode')) setMode(window.localStorage.getItem('mode'))
   }, [])
 
-  const handleLogin = async (e) => {
-    e.preventDefault()
-    try {
-      const user = await login({ username, password })
-      setUser(user)
-      window.localStorage.setItem('token', user.token)
-      window.localStorage.setItem('username', user.username)
-      window.localStorage.setItem('name', user.name)
-      blogService.setToken(user.token)
-      setUsername('')
-      setPassword('')
-    } catch (err) {
-      errorHappened(err.response.data.error)
-    }
-  }
-
   const logout = () => {
     window.localStorage.removeItem('token')
     window.localStorage.removeItem('username')
@@ -63,12 +45,12 @@ const App = () => {
 
 const errorHappened = (err) => {
   setEvent({ message: err, status: 'bad' })
-  setTimeout(() => setEvent(null), 3800)
+  setTimeout(() => setEvent(null), 2800)
 }
 
 const eventHappened = (err) => {
   setEvent({ message: err, status: 'good' })
-  setTimeout(() => setEvent(null), 3800)
+  setTimeout(() => setEvent(null), 2800)
 }
 
   return (
@@ -76,13 +58,13 @@ const eventHappened = (err) => {
       <div className='bg-white dark:bg-stone-800 border border-transparent min-h-screen w-full p-0 fixed'>
         </div>
         <div className='relative border border-transparent min-h-screen p-0'>
-        <TopPanel setMode={setMode} mode={mode} logout={logout} user={user}/>
+        <TopPanel setMode={setMode} mode={mode} logout={logout} user={user} setVisible={createBlogRef.current?.setVisible} />
         {!user 
-          ? <Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} handleLogin={handleLogin} errorHappened={errorHappened}/>
+          ? <Login setUser={setUser} errorHappened={errorHappened}/>
           : 
           <div>
             <BlogsBlock user={user} blogs={blogs} />
-            <CreateBlog blogs={blogs} setBlogs={setBlogs} eventHappened={eventHappened} errorHappened={errorHappened}/>
+              <CreateBlog blogs={blogs} setBlogs={setBlogs} eventHappened={eventHappened} errorHappened={errorHappened} ref={createBlogRef} />
           </div>
         }
         {event && <Alert event={event}/>}
