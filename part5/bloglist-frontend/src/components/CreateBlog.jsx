@@ -1,8 +1,8 @@
-import { forwardRef, useImperativeHandle, useRef, useState } from "react"
+import { forwardRef, useImperativeHandle, useState } from "react"
 import blogServices from "../services/blogs"
 import { X } from "lucide-react"
 
-const CreateBlog = forwardRef(({ setBlogs, eventHappened, errorHappened }, refs) => {
+const CreateBlog = forwardRef(({ setBlogs, eventHappened, errorHappened }, ref) => {
 
     const [visible, setVisible] = useState(false)
 
@@ -10,15 +10,17 @@ const CreateBlog = forwardRef(({ setBlogs, eventHappened, errorHappened }, refs)
         setVisible(prev => !prev)
     }
     
-    useImperativeHandle(refs, () => {
-        return { setVisible }
-    })
+    useImperativeHandle(
+        ref,
+        () => ({ setVisible })
+      );
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
             const input = { title: e.target[0].value, url: e.target[1].value, author: e.target[2].value }
             const response = await blogServices.create(input)
+            console.log(response);
             await setBlogs(prev => ([...prev, response]))
             eventHappened('new blog added succesfully')
             toggleVisibility()

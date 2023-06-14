@@ -58,7 +58,7 @@ const eventHappened = (err) => {
       <div className='bg-white dark:bg-stone-800 border border-transparent min-h-screen w-full p-0 fixed'>
         </div>
         <div className='relative border border-transparent min-h-screen p-0'>
-        <TopPanel setMode={setMode} mode={mode} logout={logout} user={user} setVisible={createBlogRef.current?.setVisible} />
+        <TopPanel setMode={setMode} mode={mode} logout={logout} user={user} ref={createBlogRef} />
         {!user 
           ? <Login setUser={setUser} errorHappened={errorHappened}/>
           : 
