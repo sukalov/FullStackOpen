@@ -63,8 +63,8 @@ const eventHappened = (err) => {
           ? <Login setUser={setUser} errorHappened={errorHappened}/>
           : 
           <div>
-            <BlogsBlock user={user} blogs={blogs} />
-              <CreateBlog blogs={blogs} setBlogs={setBlogs} eventHappened={eventHappened} errorHappened={errorHappened} ref={createBlogRef} />
+            <CreateBlog blogs={blogs} setBlogs={setBlogs} eventHappened={eventHappened} errorHappened={errorHappened} ref={createBlogRef} />
+            <BlogsBlock user={user} setBlogs={setBlogs} logout={logout} blogs={blogs} eventHappened={eventHappened} errorHappened={errorHappened} />
           </div>
         }
         {event && <Alert event={event}/>}

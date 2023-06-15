@@ -20,11 +20,12 @@ appRouter.post('/', async (req, res) => {
     try {
       const blog = new Blog({ user: req.user, ...req.body })
       const savedBlog = await blog.save()
+      const response = await Blog.findById(savedBlog.id).populate('user', { username: 1, name: 1, id: 1 })
       const user = await User.findById(req.user).exec()
       // eslint-disable-next-line no-underscore-dangle
-      user.blogs.push(savedBlog._id)
+      user.blogs.push(response._id)
       await User.findByIdAndUpdate(req.user, { blogs: user.blogs })
-      res.status(201).json(savedBlog)
+      res.status(201).json(response)
     } catch (error) {
       console.log(req.body)
       res.status(400).json({ error })
@@ -58,19 +59,14 @@ appRouter.put('/:id', async (req, res) => {
     res.status(401).json({ error: 'authentication required' })
   } else {
     try {
-      const blog = await Blog.findById(req.params.id)
-      if (req.user === blog.user.toString()) {
-        const updated = await Blog.findByIdAndUpdate(
-          req.params.id,
-          req.body,
-          { new: true, runValidators: true },
-        )
-        res.send(updated)
-      } else {
-        res.status(401).send({ error: 'non allowed to change other people\'s notes' })
-      }
+      const updated = await Blog.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true, runValidators: true },
+      ).populate('user', { username: 1, name: 1, id: 1 })
+      res.send(updated)
     } catch (error) {
-      res.status(404).send({ error: 'content not found' })
+      if (error.status === 404) res.status(404).send({ error: 'content not found' })
     }
   }
 })

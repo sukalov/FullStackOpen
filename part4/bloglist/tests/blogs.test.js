@@ -214,6 +214,15 @@ describe('updating blogs using PUT method', () => {
     const blogsAfter = await helper.stateOfDB()
     expect(blogsAfter).toHaveLength(helper.defaultBlogs.length)
   })
+  test('authorized user can successfully change his blogs', async () => {
+    const response = await api
+      .put(`/api/blogs/${validId2}`)
+      .send({ title: 'NEW TITLE' })
+      .set('Authorization', authenticationValid)
+      .expect(200)
+    console.log(response.body)
+    expect(response.body.title).toEqual('NEW TITLE')
+  })
   test('user cannot change other people\'s blogs', async () => {
     await api
       .put(`/api/blogs/${validId1}`)
@@ -223,15 +232,6 @@ describe('updating blogs using PUT method', () => {
 
     const blogsAfter = await helper.stateOfDB()
     expect(blogsAfter).toHaveLength(helper.defaultBlogs.length)
-  })
-  test('authorized user can successfully change his blogs', async () => {
-    const response = await api
-      .put(`/api/blogs/${validId2}`)
-      .send({ title: 'NEW TITLE' })
-      .set('Authorization', authenticationValid)
-      .expect(200)
-    console.log(response.body)
-    expect(response.body.title).toEqual('NEW TITLE')
   })
 })
 

@@ -11,7 +11,7 @@ const TopPanel = ({ mode, setMode, logout, user, setVisible }, ref) => {
 
     return (
         <nav className=" flex space-x-3 absolute right-0 px-3">
-            {user && <Button text='add blog' onClick={handleClick} />}
+            {user && <Button text='new blog' onClick={handleClick} />}
             {user && <Button text='log out' onClick={logout}/> }
             <ModeToggle mode={mode} setMode={setMode}/>
         </nav>
