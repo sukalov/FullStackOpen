@@ -41,6 +41,7 @@ const App = () => {
     window.localStorage.removeItem('name')
     blogService.setToken(null)
     setUser(null)
+    setEvent(null)
 }
 
 const errorHappened = (err) => {
@@ -55,7 +56,7 @@ const eventHappened = (err) => {
 
   return (
     <main className={mode}>
-      <div className='bg-white dark:bg-stone-800 border border-transparent min-h-screen w-full p-0 fixed'>
+      <div className='bg-white dark:bg-stone-800 border border-transparent min-h-screen w-full min-w-xs p-0 fixed h-full'>
         </div>
         <div className='relative border border-transparent min-h-screen p-0'>
         <TopPanel setMode={setMode} mode={mode} logout={logout} user={user} ref={createBlogRef} />
@@ -64,10 +65,10 @@ const eventHappened = (err) => {
           : 
           <div>
             <CreateBlog blogs={blogs} setBlogs={setBlogs} eventHappened={eventHappened} errorHappened={errorHappened} ref={createBlogRef} />
-            <BlogsBlock user={user} setBlogs={setBlogs} logout={logout} blogs={blogs} eventHappened={eventHappened} errorHappened={errorHappened} />
+            <BlogsBlock user={user} setBlogs={setBlogs} logout={logout} blogs={blogs} setEvent={setEvent} event={event} eventHappened={eventHappened} errorHappened={errorHappened} s />
           </div>
         }
-        {event && <Alert event={event}/>}
+        {event && <Alert event={event} setEvent={setEvent}/>}
       </div>
     </main>
   )

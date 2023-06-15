@@ -2,7 +2,7 @@ import Blog from "./Blog"
 import Skeleton from './Skeleton'
 import blogServices from '../services/blogs'
 
-const BlogsBlock = ({ user, blogs, setBlogs, eventHappened, errorHappened, logout }) => {
+const BlogsBlock = ({ user, blogs, setBlogs, eventHappened, errorHappened, setEvent, logout, event }) => {
 
     const like = async blog => {
         try {
@@ -34,7 +34,7 @@ const BlogsBlock = ({ user, blogs, setBlogs, eventHappened, errorHappened, logou
             blogs
             .sort((a, b) => b.likes - a.likes)
             .map(blog =>
-                <Blog key={blog.id} blog={blog} like={like} user={user} eventHappened={eventHappened} errorHappened={errorHappened} />
+                <Blog key={blog.id} blog={blog} like={like} user={user} eventHappened={eventHappened} errorHappened={errorHappened} setBlogs={setBlogs} logout={logout} setEvent={setEvent} event={event} />
             ) :
             <Skeleton />
             }

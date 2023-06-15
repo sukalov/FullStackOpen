@@ -26,3 +26,7 @@
         opacity: 0 
     }
   }
+
+html {
+  min-width: 300px
+}
